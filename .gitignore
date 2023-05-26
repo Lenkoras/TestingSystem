@@ -434,3 +434,9 @@ testem.log
 .DS_Store
 Thumbs.db
 API/Database/Migrations/
+
+Web/.angular/
+
+Web/dist/
+
+*.lock
