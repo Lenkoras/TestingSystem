@@ -26,7 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Auth\Auth.csproj" />
     <ProjectReference Include="..\Database\Database.csproj" />
-    <ProjectReference Include="..\TestingSystem\Web.csproj" />
+    <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
 
 </Project>

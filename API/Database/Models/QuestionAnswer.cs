@@ -13,18 +13,19 @@
         public bool IsCorrect { get; set; }
 
         /// <summary>
-        /// The parent test question of this answer.
+        /// A parent test question of this answer.
         /// </summary>
-        public virtual TestQuestion? TestQuestion { get; set; }
+        public virtual TestQuestion? Parent { get; set; }
 
         /// <summary>
         /// Collection of users who selected this answer.
         /// </summary>
-        public virtual ICollection<User>? Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
 
         public QuestionAnswer()
         {
             Text = string.Empty;
+            Users = new List<User>();
         }
     }
 }

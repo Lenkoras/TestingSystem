@@ -25,9 +25,9 @@ namespace Database
                     UserName = "xsiyrey"
                 };
 
-                user.Tests = new List<Test>() { CreateTestSolarSystemPlanetsJupiter() };
+                user.Tests.Add(CreateTestSolarSystemPlanetsJupiter());
 
-                user2.Tests = new List<Test>() { CreateTestSolarSystem() };
+                user2.Tests.Add(CreateTestSolarSystem());
 
                 Context.Users.AddRange(user, user2);
 
@@ -37,17 +37,15 @@ namespace Database
 
         private static Test CreateTestSolarSystem()
         {
-            TestQuestion[] testQuestions = new TestQuestion[]
-            {
-                CreateTestQuestionTheBiggestSatelliteInSolarSystem(),
-                CreateTestQuestionTheSunStarKind(),
-                CreateTestQuestionPeriodOfRevolutionAroundTheSun()
-            };
-
             return new Test()
             {
                 Description = "Солнечная система",
-                TestQuestions = testQuestions
+                TestQuestions = new List<TestQuestion>()
+                {
+                    CreateTestQuestionTheBiggestSatelliteInSolarSystem(),
+                    CreateTestQuestionTheSunStarKind(),
+                    CreateTestQuestionPeriodOfRevolutionAroundTheSun()
+                }
             };
         }
 
@@ -55,8 +53,8 @@ namespace Database
         {
             return new()
             {
-                Text = "Самый большой спутник в Солнечной системе ...",
-                Answers = new QuestionAnswer[]
+                Text = "Самый большой спутник в Солнечной системе это ...",
+                Answers = new List<QuestionAnswer>()
                 {
                     new()
                     {
@@ -84,7 +82,7 @@ namespace Database
             return new()
             {
                 Text = "Солнце – типичный представитель этого класса звезд:",
-                Answers = new QuestionAnswer[]
+                Answers = new List<QuestionAnswer>()
                 {
                     new()
                     {
@@ -112,7 +110,7 @@ namespace Database
             return new()
             {
                 Text = "Период обращения Сатурна вокруг Солнца?",
-                Answers = new QuestionAnswer[]
+                Answers = new List<QuestionAnswer>()
                 {
                     new()
                     {
@@ -133,17 +131,15 @@ namespace Database
 
         private static Test CreateTestSolarSystemPlanetsJupiter()
         {
-            TestQuestion[] testQuestions = new TestQuestion[]
-            {
-                CreateTestQuestionJupitersPositionInSolarSystem(),
-                CreateTestQuestionDistinctiveFeatureOfJupiter(),
-                CreateTestQuestionNaturalSatelliteOfJupiter()
-            };
-
             return new Test()
             {
                 Description = "Планеты Солнечной системы: Юпитер",
-                TestQuestions = testQuestions
+                TestQuestions = new List<TestQuestion>()
+                {
+                    CreateTestQuestionJupitersPositionInSolarSystem(),
+                    CreateTestQuestionDistinctiveFeatureOfJupiter(),
+                    CreateTestQuestionNaturalSatelliteOfJupiter()
+                }
             };
         }
 
@@ -152,7 +148,7 @@ namespace Database
             return new()
             {
                 Text = "Один из естественных спутников Юпитера называется ...",
-                Answers = new QuestionAnswer[]
+                Answers = new List<QuestionAnswer>()
                 {
                     new()
                     {
@@ -176,7 +172,7 @@ namespace Database
             return new()
             {
                 Text = "Какая существует характерная особенность Юпитера по сравнению с другими планетами Солнечной системы.",
-                Answers = new QuestionAnswer[]
+                Answers = new List<QuestionAnswer>()
                 {
                     new()
                     {
@@ -200,7 +196,7 @@ namespace Database
             return new()
             {
                 Text = "Какой по счету планетой от Солнца является Юпитер?",
-                Answers = new QuestionAnswer[]
+                Answers = new List<QuestionAnswer>()
                 {
                     new()
                     {

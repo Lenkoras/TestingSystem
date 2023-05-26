@@ -1,8 +1,6 @@
-﻿using Auth.Tokens;
+﻿using Auth;
 using Database.Models;
-using Database.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Web.Binding.Models;
 
 namespace Web.Controllers
@@ -11,37 +9,32 @@ namespace Web.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IRepositoryWrapper repositoryWrapper;
-        private ITokenService<User> tokenService;
-        private ILogger<AuthController> logger;
+        private readonly IAuthorizationService<User> authorizationService;
+        private readonly IAuthenticationService<User> authenticationService;
+        private readonly ILogger<AuthController> logger;
 
-        public AuthController(IRepositoryWrapper repositoryWrapper, ITokenService<User> tokenService, ILogger<AuthController> logger)
+        public AuthController(IAuthorizationService<User> authorizationService, IAuthenticationService<User> authenticationService, ILogger<AuthController> logger)
         {
-            this.repositoryWrapper = repositoryWrapper;
-            this.tokenService = tokenService;
+            this.authorizationService = authorizationService;
+            this.authenticationService = authenticationService;
             this.logger = logger;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginModel loginInfo)
         {
-            User? user = await AuthenticateUserAsync(loginInfo.UserName, loginInfo.Password);
+            User? user = await authorizationService.AuthorizeAsync(loginInfo.UserName, loginInfo.Password);
 
             if (user is null)
             {
                 return Unauthorized();
             }
 
-            string token = tokenService.CreateToken(user);
+            await authenticationService.AuthenticateAsync(user);
 
             logger.LogInformation($"User {user.Email} logged in at {DateTime.Now.ToLongTimeString()}.");
 
-            return Ok(token);
-        }
-
-        private async Task<User?> AuthenticateUserAsync(string userName, string password)
-        {
-            return await repositoryWrapper.Users.FirstAsync(user => user.UserName == userName);
+            return Ok();
         }
     }
 }

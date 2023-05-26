@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth", "Auth\Auth.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingSystem.Tests", "TestingSystem.Tests\TestingSystem.Tests.csproj", "{97F88090-71C1-41A2-9B98-E61961BD9AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Tokens.Jwt", "Auth.Tokens.Jwt\Auth.Tokens.Jwt.csproj", "{590C8BCE-3488-4EC4-BB6A-20C10D7FC2C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Tokens.Jwt", "Auth.Tokens.Jwt\Auth.Tokens.Jwt.csproj", "{590C8BCE-3488-4EC4-BB6A-20C10D7FC2C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{EE1DC3B9-2CFB-4EE2-A185-5B3A959D5085}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{053F47B0-7030-436E-9825-39841EA8C2D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{590C8BCE-3488-4EC4-BB6A-20C10D7FC2C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{590C8BCE-3488-4EC4-BB6A-20C10D7FC2C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{590C8BCE-3488-4EC4-BB6A-20C10D7FC2C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1DC3B9-2CFB-4EE2-A185-5B3A959D5085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1DC3B9-2CFB-4EE2-A185-5B3A959D5085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1DC3B9-2CFB-4EE2-A185-5B3A959D5085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1DC3B9-2CFB-4EE2-A185-5B3A959D5085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{053F47B0-7030-436E-9825-39841EA8C2D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053F47B0-7030-436E-9825-39841EA8C2D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053F47B0-7030-436E-9825-39841EA8C2D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053F47B0-7030-436E-9825-39841EA8C2D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

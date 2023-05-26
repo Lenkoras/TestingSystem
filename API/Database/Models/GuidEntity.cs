@@ -1,6 +1,6 @@
 ﻿namespace Database.Models
 {
-    public class Entity : Entity<Guid>
+    public abstract class Entity : Entity<Guid>
     {
         public Entity(Guid id)
         {
