@@ -1,6 +1,6 @@
 ﻿namespace Auth.Tokens
 {
-    public interface ITokenService<TUser>
+    public interface ITokenBuilder<TUser>
     {
         string CreateToken(TUser user);
     }
