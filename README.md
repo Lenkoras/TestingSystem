@@ -1,2 +1,2 @@
 # TestingSystem
-This is a test task with authorization using jwt token
+This is a test task with authorization using JWT to test users.
