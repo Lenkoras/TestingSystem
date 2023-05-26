@@ -438,3 +438,5 @@ API/Database/Migrations/
 Web/.angular/
 
 Web/dist/
+
+*.lock
