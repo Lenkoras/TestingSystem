@@ -16,7 +16,7 @@
         /// A parent test question of this answer.
         /// </summary>
         public virtual TestQuestion? Parent { get; set; }
-        
+
         /// <summary>
         /// Collection of users who selected this answer.
         /// </summary>
