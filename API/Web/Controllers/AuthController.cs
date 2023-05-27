@@ -1,7 +1,9 @@
 ﻿using Auth;
 using Database.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Binding.Models;
+using Web.Extensions;
 
 namespace Web.Controllers
 {
@@ -34,6 +36,14 @@ namespace Web.Controllers
 
             logger.LogInformation($"User {user.Email} logged in at {DateTime.Now.ToLongTimeString()}.");
 
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.DeleteAccessToken();
             return Ok();
         }
     }
