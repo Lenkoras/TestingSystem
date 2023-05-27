@@ -1,11 +1,12 @@
-﻿using Auth.Tokens;
-using AutoMapper;
+﻿using AutoMapper;
 using Database.Models;
 using Database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Models;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
+using Web.Extensions;
 
 namespace Web.Controllers
 {
@@ -31,17 +32,13 @@ namespace Web.Controllers
 
             string? textId = userIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (textId is null || !Guid.TryParse(textId, out Guid id))
-            {
-                RemoveTokenFromCookies();
-                return Unauthorized();
-            }
+            User? user;
 
-            User? user = await repositoryWrapper.Users.FindAsync(id);
-
-            if (user is null)
+            if (textId is null || /// invalid token without NameIdentifier
+                !Guid.TryParse(textId, out Guid id) || /// invalid id
+                (user = await repositoryWrapper.Users.FindAsync(id)) is null) /// user not found
             {
-                RemoveTokenFromCookies();
+                HttpContext.Response.Cookies.DeleteAccessToken();
                 return Unauthorized();
             }
 
@@ -59,18 +56,6 @@ namespace Web.Controllers
                 Id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
                 UserName = User.FindFirst(ClaimTypes.Name)?.Value
             });
-        }
-
-        private void RemoveTokenFromCookies()
-        {
-            HttpContext.Response.Cookies.Delete(
-                AccessTokenDefaults.AccessTokenKey,
-                new CookieOptions()
-                {
-                    HttpOnly = true,
-                    Secure = true
-                }
-            );
         }
     }
 }
