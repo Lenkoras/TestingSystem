@@ -4,7 +4,6 @@ using Database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Models;
-using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using Web.Extensions;
 
@@ -30,12 +29,9 @@ namespace Web.Controllers
         {
             var userIdentity = this.User;
 
-            string? textId = userIdentity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             User? user;
 
-            if (textId is null || /// invalid token without NameIdentifier
-                !Guid.TryParse(textId, out Guid id) || /// invalid id
+            if (!userIdentity.TryGetId(out Guid id) ||
                 (user = await repositoryWrapper.Users.FindAsync(id)) is null) /// user not found
             {
                 HttpContext.Response.Cookies.DeleteAccessToken();
