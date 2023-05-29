@@ -20,6 +20,7 @@ builder.Services
 /// ServiceCollection
 builder.Services
     .AddSerilog()
+    .AddCorsFromConfiguration(builder.Configuration)
     .ConfigureSqlDatabase<ApplicationDbContext>(builder.Configuration)
     .AddScoped<IRepositoryWrapper, RepositoryWrapper>()
     .AddAuthServices()
@@ -45,6 +46,7 @@ if (app.Environment.IsDevelopment())
 
 /// ApplicationBuilder
 app.UseHttpsRedirection()
+    .UseCors(builder.Configuration.GetPolicyName())
     .UseAuthServices();
 
 app.MapControllers();
