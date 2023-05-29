@@ -1,4 +1,4 @@
-﻿namespace Web.Controllers
+﻿namespace Shared.Models
 {
     public class UserAccessTokenInfo
     {

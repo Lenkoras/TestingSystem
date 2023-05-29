@@ -1,4 +1,4 @@
-﻿namespace Web.Binding.Models
+﻿namespace Shared.Binding.Models
 {
     public class CorsPolicy
     {
