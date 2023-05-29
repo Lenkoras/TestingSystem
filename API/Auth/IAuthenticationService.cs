@@ -1,8 +1,10 @@
-﻿namespace Auth
+﻿using Auth.Tokens;
+
+namespace Auth
 {
     public interface IAuthenticationService<TUser>
         where TUser : IUser<Guid>
     {
-        ValueTask AuthenticateAsync(TUser user);
+        ValueTask<ITokenInfo> AuthenticateAsync(TUser user);
     }
 }

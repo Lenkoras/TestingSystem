@@ -12,7 +12,7 @@ namespace Logic.Services
         private readonly IDataProtector dataProtector;
         private readonly ITokenBuilder<User> tokenBuilder;
 
-        private IResponseCookies Cookies => httpContextAccessor.HttpContext?.Response.Cookies ?? 
+        private IResponseCookies Cookies => httpContextAccessor.HttpContext?.Response.Cookies ??
             throw new InvalidOperationException($"Cannot set value to cookies because the {nameof(HttpContext)} property returned null, but it's invalid behaviour for the {nameof(IHttpContextAccessor)}.");
 
         public AccessTokenAuthenticationService(IHttpContextAccessor httpContextAccessor, IDataProtectionProvider dataProtectionProvider, ITokenBuilder<User> tokenBuilder)
@@ -22,13 +22,13 @@ namespace Logic.Services
             this.tokenBuilder = tokenBuilder;
         }
 
-        public ValueTask AuthenticateAsync(User user)
+        public ValueTask<ITokenInfo> AuthenticateAsync(User user)
         {
-            string token = tokenBuilder.CreateToken(user);
+            ITokenInfo tokenInfo = tokenBuilder.CreateToken(user);
 
-            AddToken(token);
+            AddToken(tokenInfo.Content);
 
-            return ValueTask.CompletedTask;
+            return ValueTask.FromResult(tokenInfo);
         }
 
         private void AddToken(string token)

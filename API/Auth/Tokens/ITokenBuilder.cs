@@ -2,6 +2,6 @@
 {
     public interface ITokenBuilder<TUser>
     {
-        string CreateToken(TUser user);
+        ITokenInfo CreateToken(TUser user);
     }
 }
