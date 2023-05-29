@@ -2,7 +2,8 @@
 using Auth.Tokens;
 using Database.Models;
 using Microsoft.AspNetCore.Mvc;
-using Web.Binding.Models;
+using Shared.Binding.Models;
+using Shared.Models;
 using Web.Extensions;
 
 namespace Web.Controllers
