@@ -39,7 +39,8 @@ namespace Database
         {
             return new Test()
             {
-                Description = "Солнечная система",
+                Name = "Солнечная система",
+                Description = "Этот тест содержит вопросы по астрономии касаемо Солнечной системы",
                 TestQuestions = new List<TestQuestion>()
                 {
                     CreateTestQuestionTheBiggestSatelliteInSolarSystem(),
@@ -133,7 +134,8 @@ namespace Database
         {
             return new Test()
             {
-                Description = "Планеты Солнечной системы: Юпитер",
+                Name = "Планеты Солнечной системы: Юпитер",
+                Description = "Этот тест содержит вопросы по астрономии касаемо планеты Юпитер",
                 TestQuestions = new List<TestQuestion>()
                 {
                     CreateTestQuestionJupitersPositionInSolarSystem(),
