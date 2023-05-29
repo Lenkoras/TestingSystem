@@ -29,4 +29,21 @@
     <ProjectReference Include="..\Logic\Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\101.js" />
+    <None Include="wwwroot\515.js" />
+    <None Include="wwwroot\541.js" />
+    <None Include="wwwroot\626.js" />
+    <None Include="wwwroot\common.js" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\main.js" />
+    <None Include="wwwroot\polyfills.js" />
+    <None Include="wwwroot\runtime.js" />
+    <None Include="wwwroot\styles.css" />
+  </ItemGroup>
+
 </Project>
