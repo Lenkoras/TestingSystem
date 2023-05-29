@@ -11,31 +11,33 @@ namespace Auth.Tokens.Jwt
         where TKey : IEquatable<TKey>
     {
         private readonly ILogger<JwtTokenBuilder<TUser, TKey>> logger;
-        private readonly TimeSpan tokenLifeTime;
+        private readonly ITokenOptions tokenOptions;
         private readonly JwtSecurityTokenHandler tokenHandler;
         private readonly SigningCredentials signingCredentials;
 
-        public JwtTokenBuilder(ILogger<JwtTokenBuilder<TUser, TKey>> logger)
+        public JwtTokenBuilder(ITokenOptions tokenOptions, ILogger<JwtTokenBuilder<TUser, TKey>> logger)
         {
+            this.tokenOptions = tokenOptions;
             this.logger = logger;
-            tokenLifeTime = TimeSpan.FromDays(1);
             this.tokenHandler = new JwtSecurityTokenHandler();
             this.signingCredentials = CreateCredentials();
         }
 
-        public string CreateToken(TUser user)
+        public ITokenInfo CreateToken(TUser user)
         {
-            JwtSecurityToken token = CreateJwtToken(CreateClaims(user));
+            DateTime expires = DateTime.UtcNow.Add(tokenOptions.LifeTime);
 
-            return tokenHandler.WriteToken(token);
+            JwtSecurityToken token = CreateJwtSecurityToken(CreateClaims(user), expires);
+
+            return new TokenInfo(tokenHandler.WriteToken(token), expires);
         }
 
-        private JwtSecurityToken CreateJwtToken(IEnumerable<Claim> claims)
+        private JwtSecurityToken CreateJwtSecurityToken(IEnumerable<Claim> claims, DateTime expires)
         {
             return new JwtSecurityToken(
                     issuer: AuthOptions.Issuer,
                     claims: claims,
-                    expires: DateTime.UtcNow.Add(tokenLifeTime),
+                    expires: expires,
                     signingCredentials: signingCredentials
                     );
         }

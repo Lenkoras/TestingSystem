@@ -7,12 +7,9 @@
         /// </summary>
         public string Description { get; set; }
 
-        public ICollection<TestQuestionShort> TestQuestions { get; set; }
-
         public UserTestShort()
         {
             Description = string.Empty;
-            TestQuestions = Array.Empty<TestQuestionShort>();
         }
     }
 }

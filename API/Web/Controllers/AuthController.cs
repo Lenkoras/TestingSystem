@@ -1,6 +1,6 @@
 ﻿using Auth;
+using Auth.Tokens;
 using Database.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Binding.Models;
 using Web.Extensions;
@@ -23,23 +23,23 @@ namespace Web.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(typeof(UserAccessTokenInfo), StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] UserLoginModel loginInfo)
         {
             User? user = await authorizationService.AuthorizeAsync(loginInfo.UserName, loginInfo.Password);
 
             if (user is null)
             {
-                return Unauthorized();
+                return NotFound("User not found"); /// about the reason why 404 code is returned here – https://stackoverflow.com/questions/5604816
             }
 
-            await authenticationService.AuthenticateAsync(user);
+            ITokenInfo tokenInfo = await authenticationService.AuthenticateAsync(user);
 
-            logger.LogInformation($"User {user.Email} logged in at {DateTime.Now.ToLongTimeString()}.");
+            logger.LogInformation($"User {user.UserName} logged in at {DateTime.Now.ToLongTimeString()}.");
 
-            return Ok();
+            return Ok(new UserAccessTokenInfo(user.UserName, tokenInfo.ExpiresIn));
         }
 
-        [Authorize]
         [HttpPost("logout")]
         public IActionResult Logout()
         {
