@@ -1,0 +1,10 @@
+.test-confirm {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0 0;
+    align-items: center;
+
+    &>* {
+        margin: 10px 20px 0 0;
+    }
+}

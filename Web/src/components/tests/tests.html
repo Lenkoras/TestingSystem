@@ -1,3 +1,19 @@
 <div class="tests">
-    tests
+    <h2 class="title">{{token.userName}} user tests</h2>
+    <div class="list">
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let test of tests; let i = index;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{i+1}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{test.name}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <a mat-button (click)="current=test">Start</a>
+                <test-confirm [test]="test"></test-confirm>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>

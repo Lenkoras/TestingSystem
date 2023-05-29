@@ -46,6 +46,7 @@ if (app.Environment.IsDevelopment())
 
 /// ApplicationBuilder
 app.UseHttpsRedirection()
+    .UseStaticFiles()
     .UseCors(builder.Configuration.GetPolicyName())
     .UseAuthServices();
 

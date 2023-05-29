@@ -3,6 +3,8 @@ using Database.Models;
 using Database.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Shared.Binding.Models;
 using Shared.Models;
 using Web.Extensions;
 
@@ -52,6 +54,48 @@ namespace Web.Controllers
             TestQuestionShort[] testQuestions = userTest.TestQuestions.Select(mapper.Map<TestQuestionShort>).ToArray();
 
             return Ok(testQuestions);
+        }
+
+        [HttpPost("check")]
+        [ProducesResponseType(typeof(TestCheckResultModel), StatusCodes.Status200OK)]
+        public async Task<IActionResult> CheckTestAsync([FromBody] TestCheckModel testCheck)
+        {
+            var parsedTestCheck = mapper.Map<ParsedTestCheckModel>(testCheck);
+
+            Test? test = await repositoryWrapper.Tests.FindAsync(parsedTestCheck.Id);
+
+            if (test is null)
+            {
+                return NotFound("Test not found");
+            }
+
+            var parsedQuestions = parsedTestCheck.Questions.DistinctBy(parsedQuestion => parsedQuestion.Id).ToArray();
+
+            var questions = test.TestQuestions.Where(question => parsedQuestions.Any(parsedQuestion => parsedQuestion.Id == question.Id)).ToArray();
+
+            if (questions.Length != parsedQuestions.Length)
+            {
+                return BadRequest("Invalid questions count or contained duplicate values.");
+            }
+
+            int correctCount = 0;
+
+            foreach (var question in questions)
+            {
+                var parsedQuestion = parsedQuestions.FirstOrDefault(parsedQuestion => parsedQuestion.Id == question.Id);
+
+                if (parsedQuestion is null)
+                {
+                    return NotFound("Test question not found");
+                }
+                var answer = question.Answers.FirstOrDefault(answer => answer.IsCorrect);
+                if (answer is not null && answer.Id == parsedQuestion.AnswerId)
+                {
+                    correctCount++;
+                }
+            }
+
+            return Ok(new TestCheckResultModel() { CorrectCount = correctCount, TotalCount = questions.Length });
         }
     }
 }

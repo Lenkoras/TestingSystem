@@ -433,7 +433,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-API/Database/Migrations/
 
 Web/.angular/
 

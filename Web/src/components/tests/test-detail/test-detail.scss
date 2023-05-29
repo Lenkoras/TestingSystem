@@ -1,0 +1,49 @@
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.spinner {
+    height: 64px !important;
+}
+
+.test-detail {
+    @extend .column;
+    
+    margin: 30px auto 0;
+    align-items: center;
+    max-width: 1000px;
+
+    .controls {
+        @extend .column;
+
+        &>* {
+            margin: 10px 0 0;
+        }
+    }
+}
+
+.answers {
+    @extend .column;
+
+    margin: 20px 0 0;
+
+    align-items: start;
+}
+
+.hidden {
+    display: block;
+}
+
+fieldset {
+    display: block;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-block-start: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    padding-block-end: 0;
+    min-inline-size: min-content;
+    border-width: 0;
+    border-style: none;
+}

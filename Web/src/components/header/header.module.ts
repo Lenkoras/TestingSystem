@@ -4,6 +4,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatRippleModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterModule } from "@angular/router";
+import { NgIf } from "@angular/common";
 
 @NgModule({
     imports: [
@@ -11,6 +12,7 @@ import { RouterModule } from "@angular/router";
         MatButtonModule,
         MatRippleModule,
         RouterModule,
+        NgIf
     ],
     declarations: [HeaderComponent],
     exports: [HeaderComponent]

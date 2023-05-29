@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Web.Binding.Models
+namespace Shared.Binding.Models
 {
     public class UserLoginModel
     {
