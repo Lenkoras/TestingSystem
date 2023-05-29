@@ -1,4 +1,4 @@
-﻿using Web.Binding.Models;
+﻿using Shared.Binding.Models;
 
 namespace Web.Extensions
 {
