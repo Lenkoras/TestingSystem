@@ -1,0 +1,8 @@
+<div class="test-confirm" *ngIf="!isProceeded">
+    <div class="name">{{test.name}}</div>
+    <div class="description">{{test.description}}</div>
+    <mat-checkbox [(ngModel)]="isConfirmed">
+      I agree to start
+    </mat-checkbox>
+    <a mat-button *ngIf="test.id != null" [routerLink]="test.id" [disabled]="!isConfirmed">Proceed</a>
+</div>

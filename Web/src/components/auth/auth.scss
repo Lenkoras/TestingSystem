@@ -1,5 +1,19 @@
 @import '../../common/vars.scss';
 
 .auth {
-    
+    .fields {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .label {
+        margin: 30px 0 20px;
+        font-size: 18px;
+        user-select: none;
+    }
+
+    mat-spinner {
+        height: 64px !important;
+    }
 }

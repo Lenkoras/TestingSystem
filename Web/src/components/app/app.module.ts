@@ -6,17 +6,21 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderModule } from '../header/header.module';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         HttpClientModule,
         HeaderModule,
         AppRoutingModule
+    ],
+    declarations: [
+        AppComponent,
+        PageNotFoundComponent
     ],
     bootstrap: [
         AppComponent

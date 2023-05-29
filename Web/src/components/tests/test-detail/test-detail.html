@@ -1,0 +1,31 @@
+<div class="test-detail" *ngIf="enumerator.current != null">
+    <form class="test" [formGroup]="form">
+        <fieldset [disabled]="isSending">
+            <div class="question" *ngFor="let q of questions; let i = index;">
+                <div class="content" [ngClass]="{hidden:enumerator.currentIndex != i}">
+                    <div class="text">{{enumerator.current.text}}</div>
+                    <mat-radio-group class="answers" aria-label="Select an option" [(ngModel)]="answerIdArray[i]">
+                        <mat-radio-button *ngFor="let answer of enumerator.current.answers; let j = index;"
+                            [value]="answer.id">
+                            {{answer.text}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div class="controls">
+        <button mat-button (click)="enumerator.moveNext()" *ngIf="enumerator.currentIndex < enumerator.count - 1"
+            [disabled]="!isValidAnswer()">
+            Next
+        </button>
+        <button mat-button (click)="enumerator.movePrevious()" *ngIf="enumerator.currentIndex > 0" [disabled]="isSending">
+            Previous
+        </button>
+        <button mat-button [disabled]="!isCanFinish()" (click)="sendResults()"
+            *ngIf="enumerator.count - 1 === enumerator.currentIndex">
+            Show results
+        </button>
+        <mat-spinner class="spinner" *ngIf="isSending"></mat-spinner>
+    </div>
+</div>

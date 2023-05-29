@@ -1,3 +1,32 @@
 <div class="auth">
-    Auth
+    <div class="fields">
+        <span class="label">Authorization</span>
+        <mat-form-field *ngIf="!byToken">
+            <mat-label>Fill user name</mat-label>
+            <input matInput placeholder="User name" type="text" name="userName" [(ngModel)]="userName" required/>
+            <mat-icon matSuffix>user</mat-icon>
+            <mat-error *ngIf="userName.length<2">Min length 2 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!byToken">
+            <mat-label>Fill password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" name="password" [(ngModel)]="password" required/>
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.length<6">Min length 6 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="byToken">
+            <mat-label>Fill token</mat-label>
+            <input matInput type="text" [(ngModel)]="token" required/>
+        </mat-form-field>
+        
+        <button mat-button (click)="login()">Login</button>
+        <mat-checkbox [(ngModel)]="byToken">By token</mat-checkbox>
+        <div>{{status}}</div>
+        <mat-spinner *ngIf="inProcess"></mat-spinner>
+    </div>
+
 </div>
