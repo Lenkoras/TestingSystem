@@ -12,7 +12,7 @@ namespace TestingSystem.Tests
             var randomKeyGenerator = new RandomKeyGenerator();
 
             // Act
-            char[]? actualKey = randomKeyGenerator.GetRandomKey(size: keySize);
+            char[]? actualKey = randomKeyGenerator.CreateKey(size: keySize);
 
             // Assert
             Assert.True(actualKey is not null);
@@ -28,7 +28,7 @@ namespace TestingSystem.Tests
             var randomKeyGenerator = new RandomKeyGenerator();
 
             // Act
-            Action actual = () => randomKeyGenerator.GetRandomKey(size: keySize);
+            Action actual = () => randomKeyGenerator.CreateKey(size: keySize);
 
             // Assert
             Assert.Throws<ArgumentOutOfRangeException>(actual);

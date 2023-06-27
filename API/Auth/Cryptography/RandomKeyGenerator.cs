@@ -24,19 +24,19 @@ namespace Auth.Cryptography
             Dispose(nullifyMembers: false);
         }
 
-        public char[] GetRandomKey(int size)
+        public char[] CreateKey(int size)
         {
             const int ShiftSize = sizeof(int);
 
             if (size < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(size),
-                    $"Specified {nameof(size)} parameter for {nameof(RandomKeyGenerator)}.{nameof(GetRandomKey)} was less than zero (0).");
+                    $"Specified {nameof(size)} parameter for {nameof(RandomKeyGenerator)}.{nameof(CreateKey)} was less than zero (0).");
             }
 
             if ((long)size * ShiftSize > int.MaxValue)
             {
-                throw new ArgumentOutOfRangeException($"Specified {nameof(size)} parameter for {nameof(RandomKeyGenerator)}.{nameof(GetRandomKey)} have too large size. It should be less or equal than {nameof(Int32)}.{nameof(int.MaxValue)} / {ShiftSize}. ({int.MaxValue / ShiftSize})");
+                throw new ArgumentOutOfRangeException($"Specified {nameof(size)} parameter for {nameof(RandomKeyGenerator)}.{nameof(CreateKey)} have too large size. It should be less or equal than {nameof(Int32)}.{nameof(int.MaxValue)} / {ShiftSize}. ({int.MaxValue / ShiftSize})");
             }
 
             ObjectDisposedException.ThrowIf(randomNumberGenerator is null, this);
