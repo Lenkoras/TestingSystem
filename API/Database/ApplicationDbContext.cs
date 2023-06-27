@@ -9,7 +9,7 @@ namespace Database
     {
         /// [WARNING] Required ctor! Do not remove!
         /// <summary>
-        /// Creates new the <see cref="ApplicationDbContext"/> instance.
+        /// Creates a new instance of the <see cref="ApplicationDbContext"/> class.
         /// </summary>
         /// <param name="options"></param>
         public ApplicationDbContext(DbContextOptions options) : base(options)

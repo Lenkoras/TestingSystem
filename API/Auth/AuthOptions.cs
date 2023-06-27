@@ -6,7 +6,13 @@ namespace Auth
     public static class AuthOptions
     {
         private static readonly string EncryptionEnviromentVariableKey = "TestingSystemEncryptionKey";
-        private static readonly char[] SecurityKeyChars;
+
+        private static readonly byte[] encryptionKeyBytes;
+
+        /// <summary>
+        /// Encryption key.
+        /// </summary>
+        public static byte[] EncryptionKeyBytes => encryptionKeyBytes.ToArray();
 
         /// <summary>
         /// Token issuer.
@@ -16,22 +22,27 @@ namespace Auth
         static AuthOptions()
         {
             string? key = Environment.GetEnvironmentVariable(EncryptionEnviromentVariableKey);
+            Encoding encoding = Encoding.UTF8;
 
-            SecurityKeyChars = key?.ToCharArray() ?? GenerateNewEncryptionKeyAndSetToEnvironment();
+            if (key is null)
+            {
+                char[] uniqueKeyChars = CreateEncryptionKey();
+
+                Environment.SetEnvironmentVariable(EncryptionEnviromentVariableKey, string.Concat(uniqueKeyChars));
+
+                encryptionKeyBytes = encoding.GetBytes(uniqueKeyChars);
+            }
+            else
+            {
+                encryptionKeyBytes = encoding.GetBytes(key);
+            }
         }
 
-        /// <summary>
-        /// Encryption key.
-        /// </summary>
-        public static byte[] GetEncryptionKeyBytes() =>
-            Encoding.UTF8.GetBytes(SecurityKeyChars);
-
-        private static char[] GenerateNewEncryptionKeyAndSetToEnvironment()
+        private static char[] CreateEncryptionKey()
         {
             using RandomKeyGenerator keyProvider = new RandomKeyGenerator();
-            char[] uniqueKeyChars = keyProvider.GetRandomKey(size: 50);
-            string key = string.Concat(uniqueKeyChars);
-            Environment.SetEnvironmentVariable(EncryptionEnviromentVariableKey, key);
+            char[] uniqueKeyChars = keyProvider.CreateKey(size: 50);
+            
             return uniqueKeyChars;
         }
     }

@@ -26,7 +26,7 @@ namespace Web.Extensions
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = AuthOptions.Issuer,
-                IssuerSigningKey = new SymmetricSecurityKey(AuthOptions.GetEncryptionKeyBytes()),
+                IssuerSigningKey = new SymmetricSecurityKey(AuthOptions.EncryptionKeyBytes),
             };
     }
 }

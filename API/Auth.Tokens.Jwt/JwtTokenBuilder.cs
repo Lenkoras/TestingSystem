@@ -44,7 +44,7 @@ namespace Auth.Tokens.Jwt
 
         private static SigningCredentials CreateCredentials() =>
             new SigningCredentials(
-                new SymmetricSecurityKey(AuthOptions.GetEncryptionKeyBytes()),
+                new SymmetricSecurityKey(AuthOptions.EncryptionKeyBytes),
                 SecurityAlgorithms.HmacSha256);
 
         private IEnumerable<Claim> CreateClaims(TUser user)

@@ -23,8 +23,8 @@ namespace Web.Extensions
                 .AddScoped<AccessTokenPropagationMiddleware>()
                 .AddScoped<IAuthorizationService<User>, ApplicationAuthorizationService>()
                 .AddScoped<IAuthenticationService<User>, AccessTokenAuthenticationService>()
-                .AddScoped<ITokenOptions, TokenOptions>(provider => new TokenOptions(TimeSpan.FromDays(1)))
-                .AddScoped<ITokenBuilder<User>, JwtTokenBuilder<User, Guid>>()
+                .AddSingleton<ITokenOptions, TokenOptions>(provider => new TokenOptions(TimeSpan.FromDays(1)))
+                .AddSingleton<ITokenBuilder<User>, JwtTokenBuilder<User, Guid>>()
                 .AddAuthorization();
         }
     }
